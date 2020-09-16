@@ -3,13 +3,13 @@ services:
     web: 
         # if we put "build: ," it means build command look for dockerfile. 
         # if we have other file name than dockerfile  then we do as - 
-        build: 
+        build: .
             # context is for dockerfile location
             # here build will check in root folder (frontend)
-            context: .
+           # context: .
 
             # here specify dockerfile name which is given
-            dockerfile: Dockerfile.dev
+            #dockerfile: Dockerfile.dev
 
         ports: 
             - "3000:3000"
