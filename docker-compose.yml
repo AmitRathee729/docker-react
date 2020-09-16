@@ -1,0 +1,33 @@
+version: '3'
+services: 
+    web: 
+        # if we put "build: ," it means build command look for dockerfile. 
+        # if we have other file name than dockerfile  then we do as - 
+        build: 
+            # context is for dockerfile location
+            # here build will check in root folder (frontend)
+            context: .
+
+            # here specify dockerfile name which is given
+            dockerfile: Dockerfile.dev
+
+        ports: 
+            - "3000:3000"
+
+        # we use volume to auto refresh and in volume we give reference to project
+        volumes: 
+
+            # node_modules reference from docker app container because there is no node_module folder in project
+            - /app/node_modules
+            
+            # here all files and folder are reference to docker container which is in frontend folder
+            - .:/app
+    
+    tests:
+        build: 
+            context: .
+            dockerfile: Dockerfile.dev
+        volumes: 
+            - /app/node_modules
+            - .:/app
+        command: ["npm", "run", "test"]
